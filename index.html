@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abdelilah Kasmy — Mechatronics Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --bg2: #111418;
+    --bg3: #181d24;
+    --accent: #00d4ff;
+    --accent2: #0088aa;
+    --text: #c8d6e5;
+    --muted: #5a6a7a;
+    --border: #1e2a36;
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'Barlow', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* GRID BG */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 60px;
+    background: rgba(10,12,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  #hero {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 60px;
+    max-width: 900px;
+  }
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero-tag::before { content: '> '; }
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 400;
+    color: #fff;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .hero-sub {
+    font-family: var(--mono);
+    font-size: clamp(14px, 2vw, 20px);
+    color: var(--accent);
+    margin-bottom: 28px;
+    letter-spacing: 1px;
+  }
+  .hero-desc {
+    font-size: 16px;
+    color: var(--text);
+    max-width: 520px;
+    margin-bottom: 44px;
+    opacity: 0.8;
+  }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    font-weight: 600;
+  }
+  .btn-primary:hover { background: #00b8d9; }
+  .btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent2);
+  }
+  .btn-outline:hover { background: rgba(0,212,255,0.08); border-color: var(--accent); }
+
+  /* SCROLL INDICATOR */
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 60px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  /* SECTIONS */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 100px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-label::before { content: '// '; }
+  h2 {
+    font-family: var(--mono);
+    font-size: clamp(22px, 3vw, 36px);
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 48px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* SKILLS */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .skill-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .skill-card:hover { border-color: var(--accent2); transform: translateY(-2px); }
+  .skill-card:hover::before { opacity: 1; }
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .skill-title {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #fff;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .skill-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* SKILL BARS */
+  .skill-bar-wrap { margin-top: 14px; }
+  .skill-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  .skill-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent));
+    border-radius: 2px;
+    animation: fillBar 1.4s ease forwards;
+    transform-origin: left;
+  }
+  @keyframes fillBar { from { width: 0; } }
+
+  /* PROJECTS */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 32px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at top right, rgba(0,212,255,0.06), transparent 70%);
+  }
+  .project-card:hover { border-color: var(--accent2); transform: translateY(-3px); }
+  .project-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    opacity: 0.7;
+  }
+  .project-title {
+    font-family: var(--mono);
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 12px;
+  }
+  .project-desc { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border: 1px solid var(--accent2);
+    color: var(--accent);
+    border-radius: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .about-text p { font-size: 15px; color: var(--text); opacity: 0.85; margin-bottom: 16px; }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .stat-box {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 32px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .stat-label { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* CONTACT */
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+  .contact-info p { font-size: 15px; color: var(--muted); margin-bottom: 28px; }
+  .contact-links { display: flex; flex-direction: column; gap: 14px; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    text-decoration: none;
+    padding: 14px 18px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link span { opacity: 0.5; font-size: 11px; }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .form-field label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .form-field input,
+  .form-field textarea {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 12px 16px;
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+  .form-field input:focus,
+  .form-field textarea:focus { border-color: var(--accent2); }
+
+  /* FOOTER */
+  footer {
+    position: relative;
+    z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 30px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .footer-accent { color: var(--accent); }
+
+  /* ANIMATIONS */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 20px; }
+    #hero, section { padding-left: 24px; padding-right: 24px; }
+    .scroll-hint { left: 24px; }
+    .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 36px; }
+    footer { flex-direction: column; gap: 10px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#hero">AK.ENG</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-tag">Mechatronics Engineer</div>
+  <h1>Abdelilah<br>Kasmy</h1>
+  <div class="hero-sub">_ Engineering the future, one system at a time</div>
+  <p class="hero-desc">
+    Ingénieur en mécatronique passionné par la robotique, l'automatisation et l'optimisation des systèmes industriels. Je conçois des solutions intelligentes à l'intersection du mécanique, de l'électronique et du software.
+  </p>
+  <div class="hero-btns">
+    <a href="#projects" class="btn btn-primary">Voir mes projets</a>
+    <a href="#contact" class="btn btn-outline">Me contacter</a>
+  </div>
+  <div class="scroll-hint">scroll</div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label fade-in">Compétences</div>
+  <h2 class="fade-in">Stack technique</h2>
+  <div class="skills-grid">
+    <div class="skill-card fade-in">
+      <span class="skill-icon">⚙️</span>
+      <div class="skill-title">Robotique & Automatisme</div>
+      <div class="skill-desc">Conception et programmation de systèmes robotiques, automates programmables (PLC), contrôle de mouvement.</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Maîtrise</span><span>90%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:90%"></div></div>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <span class="skill-icon">🔌</span>
+      <div class="skill-title">Arduino & Électronique</div>
+      <div class="skill-desc">Prototypage électronique, microcontrôleurs, capteurs, PCB design et systèmes embarqués.</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Maîtrise</span><span>85%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:85%"></div></div>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <span class="skill-icon">📐</span>
+      <div class="skill-title">CAD — SolidWorks / AutoCAD</div>
+      <div class="skill-desc">Modélisation 3D, conception mécanique, simulation et dessin industriel pour pièces et assemblages.</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Maîtrise</span><span>88%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:88%"></div></div>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <span class="skill-icon">🐍</span>
+      <div class="skill-title">Python & MATLAB</div>
+      <div class="skill-desc">Simulation, traitement de données, algorithmes de contrôle, machine learning appliqué à l'ingénierie.</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Maîtrise</span><span>80%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:80%"></div></div>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <span class="skill-icon">📊</span>
+      <div class="skill-title">Data Analysis</div>
+      <div class="skill-desc">Analyse de données industrielles, visualisation, KPIs, tableaux de bord et aide à la décision.</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Maîtrise</span><span>78%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:78%"></div></div>
+      </div>
+    </div>
+    <div class="skill-card fade-in">
+      <span class="skill-icon">🏭</span>
+      <div class="skill-title">Lean Manufacturing</div>
+      <div class="skill-desc">Optimisation des processus industriels, réduction des gaspillages, amélioration continue (Kaizen, 5S, VSM).</div>
+      <div class="skill-bar-wrap">
+        <div class="skill-bar-label"><span>Maîtrise</span><span>82%</span></div>
+        <div class="skill-bar"><div class="skill-bar-fill" style="width:82%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label fade-in">Projets</div>
+  <h2 class="fade-in">Réalisations</h2>
+  <div class="projects-grid">
+    <div class="project-card fade-in">
+      <div class="project-num">01 / PROJECT</div>
+      <div class="project-title">Bras robotique automatisé</div>
+      <p class="project-desc">Conception et programmation d'un bras robotique 4 axes pour le tri automatique de pièces industrielles. Contrôle via Arduino et interface Python.</p>
+      <div class="project-tags">
+        <span class="tag">Arduino</span>
+        <span class="tag">Python</span>
+        <span class="tag">SolidWorks</span>
+        <span class="tag">Robotique</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-num">02 / PROJECT</div>
+      <div class="project-title">Optimisation ligne de production</div>
+      <p class="project-desc">Application des méthodes Lean (VSM, 5S, Kaizen) pour réduire les temps de cycle de 23% sur une ligne d'assemblage automobile.</p>
+      <div class="project-tags">
+        <span class="tag">Lean</span>
+        <span class="tag">VSM</span>
+        <span class="tag">Optimisation</span>
+        <span class="tag">Data</span>
+      </div>
+    </div>
+    <div class="project-card fade-in">
+      <div class="project-num">03 / PROJECT</div>
+      <div class="project-title">Système de monitoring IoT</div>
+      <p class="project-desc">Développement d'un système de surveillance en temps réel de paramètres industriels (température, vibration, pression) avec dashboard analytique.</p>
+      <div class="project-tags">
+        <span class="tag">IoT</span>
+        <span class="tag">MATLAB</span>
+        <span class="tag">Capteurs</span>
+        <span class="tag">Dashboard</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label fade-in">À propos</div>
+  <h2 class="fade-in">Qui suis-je ?</h2>
+  <div class="about-grid">
+    <div class="about-text fade-in">
+      <p>Ingénieur en mécatronique avec une passion pour les systèmes complexes à l'intersection du mécanique, de l'électronique et de l'informatique.</p>
+      <p>Je combine des compétences en conception mécanique, programmation et analyse de données pour concevoir des solutions industrielles performantes et innovantes.</p>
+      <p>Toujours en quête d'optimisation, j'applique les principes du Lean Manufacturing pour améliorer les processus et maximiser la valeur ajoutée.</p>
+      <br>
+      <a href="mailto:abdelilah.kasmy@email.com" class="btn btn-outline">📧 Télécharger mon CV</a>
+    </div>
+    <div class="about-stats fade-in">
+      <div class="stat-box">
+        <span class="stat-num">3+</span>
+        <span class="stat-label">Années d'expérience</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">10+</span>
+        <span class="stat-label">Projets réalisés</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">6</span>
+        <span class="stat-label">Compétences clés</span>
+      </div>
+      <div class="stat-box">
+        <span class="stat-num">23%</span>
+        <span class="stat-label">Gain productivité</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label fade-in">Contact</div>
+  <h2 class="fade-in">Travaillons ensemble</h2>
+  <div class="contact-wrap">
+    <div class="contact-info fade-in">
+      <p>Vous avez un projet ou une opportunité ? N'hésitez pas à me contacter.</p>
+      <div class="contact-links">
+        <a href="https://github.com/abdelilah-kasmy" class="contact-link" target="_blank">
+          <span>GH</span> github.com/abdelilah-kasmy
+        </a>
+        <a href="mailto:abdelilah.kasmy@email.com" class="contact-link">
+          <span>@</span> abdelilah.kasmy@email.com
+        </a>
+        <a href="https://linkedin.com/in/abdelilah-kasmy" class="contact-link" target="_blank">
+          <span>IN</span> linkedin.com/in/abdelilah-kasmy
+        </a>
+      </div>
+    </div>
+    <div class="contact-form fade-in">
+      <div class="form-field">
+        <label>Nom</label>
+        <input type="text" placeholder="Votre nom">
+      </div>
+      <div class="form-field">
+        <label>Email</label>
+        <input type="email" placeholder="votre@email.com">
+      </div>
+      <div class="form-field">
+        <label>Message</label>
+        <textarea rows="5" placeholder="Votre message..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="align-self:flex-start">Envoyer le message</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-text">© 2025 <span class="footer-accent">Abdelilah Kasmy</span> — Mechatronics Engineer</div>
+  <div class="footer-text">Built with <span class="footer-accent">GitHub Pages</span></div>
+</footer>
+
+<script>
+  // Fade in on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
